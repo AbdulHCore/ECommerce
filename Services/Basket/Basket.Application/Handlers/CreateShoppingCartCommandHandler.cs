@@ -4,19 +4,29 @@ using Basket.Application.Responses;
 using Basket.Core.Repositories;
 using Basket.Core.Entities;
 using MediatR;
+using Basket.Application.GrpcService;
 
 namespace Basket.Application.Handlers
 {
     public class CreateShoppingCartCommandHandler : IRequestHandler<CreateShoppingCartCommand, ShoppingCartResponse>
     {
         private readonly IBasektRepository _basektRepository;
-        public CreateShoppingCartCommandHandler(IBasektRepository basektRepository)
+        private readonly DiscountGrpcService _discountGrpcService;
+
+        public CreateShoppingCartCommandHandler(IBasektRepository basektRepository, DiscountGrpcService discountGrpcService)
         {
             _basektRepository = basektRepository;
+            _discountGrpcService = discountGrpcService;
         }
         public async Task<ShoppingCartResponse> Handle(CreateShoppingCartCommand request, CancellationToken cancellationToken)
         {
-            //ToDo : Will be integrating Discount Service.
+            
+            //gRPC Service (discountGrPcService) getting injected. which was registered onto different Microservice onto different container.
+            foreach (var item in request.Items)
+            {
+                var coupon = await _discountGrpcService.GetDiscount(item.ProductName);
+                item.Price -= coupon.Amount;
+            }
             var shoppingCart = await _basektRepository.UpdateBasket(new ShoppingCart
             {
                 UserName = request.UserName,

@@ -1,4 +1,5 @@
 ﻿using Basket.Application.Commands;
+using Basket.Application.GrpcService;
 using Basket.Application.Queries;
 using Basket.Application.Responses;
 using MediatR;
@@ -10,9 +11,10 @@ namespace Basket.API.Controllers
     public class BasketController : ApiController
     {
         private readonly IMediator _mediator;
+        
         public BasketController(IMediator mediator) 
         { 
-            _mediator = mediator;  
+            _mediator = mediator;            
         }
 
         [HttpGet]
@@ -28,7 +30,7 @@ namespace Basket.API.Controllers
         [HttpPost]
         [ProducesResponseType (typeof(ShoppingCartResponse), (int)HttpStatusCode.OK)]
         public async Task<ActionResult<ShoppingCartResponse>> CreateBasket([FromBody] CreateShoppingCartCommand shoppingCart)
-        {
+        {            
             var basket = await _mediator.Send(shoppingCart);
             return Ok(basket);
         }
