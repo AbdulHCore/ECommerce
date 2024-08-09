@@ -4,6 +4,7 @@ using Basket.Application.Queries;
 using Basket.Core.Repositories;
 using Basket.Infrastructure.Repositories;
 using Discount.Grpc.Protos;
+using MassTransit;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -42,7 +43,16 @@ builder.Services.AddStackExchangeRedisCache(options =>
 //Application Services
 builder.Services.AddScoped<IBasektRepository, BasketRepository>();
 builder.Services.AddScoped<DiscountGrpcService>();
-builder.Services.AddGrpcClient<DiscountProtoService.DiscountProtoServiceClient>(cfg => cfg.Address = new Uri(builder.Configuration["GrpcSettings:DiscountUrl"]));
+builder.Services.AddGrpcClient<DiscountProtoService.DiscountProtoServiceClient>
+    (cfg => cfg.Address = new Uri(builder.Configuration["GrpcSettings:DiscountUrl"]));
+
+//Wiring up Rabbit MQ on API via MassTransit Library
+builder.Services.AddMassTransit(config =>
+    {
+        config.UsingRabbitMq((ctx, cfg) =>
+            cfg.Host(builder.Configuration["EventBusSettings:HostAddress"]));
+    });
+builder.Services.AddMassTransitHostedService();
 
 var app = builder.Build();
 
