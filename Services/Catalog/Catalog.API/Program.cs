@@ -3,8 +3,13 @@ using Catalog.Infrastructure.Data;
 using Catalog.Infrastructure.Repositories;
 using Catalog.Application.Handlers;
 using System.Reflection;
+using Serilog;
+using Common.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
+
+//Serilog Configuration, via Common.Logging.
+builder.Host.UseSerilog(Logging.ConfigureLogger);
 
 // Add services to the container.
 builder.Services.AddControllers();
