@@ -33,9 +33,12 @@ builder.Services.AddInfraServices(builder.Configuration);
 
 //RabbitMQ & MassTransit wireup for Message Consumer
 builder.Services.AddScoped<BasketOrderingConsumer>();
+builder.Services.AddScoped<BasketOrderingConsumerV2>();
+
 builder.Services.AddMassTransit(config =>
     {
         config.AddConsumer<BasketOrderingConsumer>();
+        config.AddConsumer<BasketOrderingConsumerV2>();
         config.UsingRabbitMq((ctx, cfg) =>
         {
             cfg.Host(builder.Configuration["EventBussSettings:HostAddress"]);
@@ -43,7 +46,13 @@ builder.Services.AddMassTransit(config =>
             cfg.ReceiveEndpoint(EventBusConstant.BasketCheckoutQueue, c =>
             {
                 c.ConfigureConsumer<BasketOrderingConsumer>(ctx);
-            });            
+            });
+
+            //V2 Version
+            cfg.ReceiveEndpoint(EventBusConstant.BasketCheckoutQueueV2, c => //If there is a problem, then create New Queue for V2, and use the same.
+            {
+                c.ConfigureConsumer<BasketOrderingConsumerV2>(ctx);
+            });
         });
     });
 builder.Services.AddMassTransitHostedService();
