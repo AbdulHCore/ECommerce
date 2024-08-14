@@ -2,6 +2,9 @@ using Asp.Versioning;
 using Common.Logging;
 using EventBus.Messages.Common;
 using MassTransit;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Ordering.API.EventBusConsumer;
 using Ordering.API.Extensions;
 using Ordering.Application.Extensions;
@@ -57,6 +60,26 @@ builder.Services.AddMassTransit(config =>
     });
 builder.Services.AddMassTransitHostedService();
 
+//Identity Server Changes
+//Adding Auth policy
+var userPolicy = new AuthorizationPolicyBuilder()
+    .RequireAuthenticatedUser()
+    .Build();
+
+//Marking all the controllers should use the Auth Policy
+builder.Services.AddControllers(config =>
+{
+    config.Filters.Add(new AuthorizeFilter(userPolicy));
+});
+
+//To contact Identity Server to provide token
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.Authority = "https://localhost:8009";
+        options.Audience = "Ordering";
+    });
+
 var app = builder.Build();
 
 //Apply DB Migration
@@ -74,8 +97,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();

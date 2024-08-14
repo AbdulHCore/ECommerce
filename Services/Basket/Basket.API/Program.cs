@@ -6,6 +6,9 @@ using Basket.Infrastructure.Repositories;
 using Common.Logging;
 using Discount.Grpc.Protos;
 using MassTransit;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Serilog;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Reflection;
@@ -89,6 +92,26 @@ builder.Services.AddMassTransit(config =>
     });
 builder.Services.AddMassTransitHostedService();
 
+//Identity Server Changes
+//Adding Auth policy
+var userPolicy = new AuthorizationPolicyBuilder()
+    .RequireAuthenticatedUser()
+    .Build();
+
+//Marking all the controllers should use the Auth Policy
+builder.Services.AddControllers(config =>
+{
+    config.Filters.Add(new AuthorizeFilter(userPolicy));
+});
+
+//To contact Identity Server to provide token
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.Authority = "https://localhost:8009";
+        options.Audience = "Basket";
+    });
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -103,6 +126,7 @@ if (app.Environment.IsDevelopment())
     });
 }
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

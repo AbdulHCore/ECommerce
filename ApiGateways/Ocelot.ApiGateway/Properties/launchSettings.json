@@ -22,7 +22,8 @@
         "ASPNETCORE_ENVIRONMENT": "Local"
       },
       "dotnetRunMessages": true,
-      "applicationUrl": "http://localhost:8010"
+      /*Identity server Implemented, so scheme must be https instead of http */
+      "applicationUrl": "https://localhost:8010"
     },
     "Docker": {
       "commandName": "Docker",

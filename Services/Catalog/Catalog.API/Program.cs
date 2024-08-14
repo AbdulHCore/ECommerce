@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.BearerToken;
 using Catalog.Core.Repositories;
 using Catalog.Infrastructure.Data;
 using Catalog.Infrastructure.Repositories;
@@ -5,6 +6,9 @@ using Catalog.Application.Handlers;
 using System.Reflection;
 using Serilog;
 using Common.Logging;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,6 +38,31 @@ builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IBrandRepository, ProductRepository>();
 builder.Services.AddScoped<IProductTypeRepository, ProductRepository>();
 
+//Identity Server Changes
+//Adding Auth policy
+var userPolicy = new AuthorizationPolicyBuilder()
+    .RequireAuthenticatedUser()
+    .Build();
+
+//Marking all the controllers should use the Auth Policy
+builder.Services.AddControllers(config =>
+{
+    config.Filters.Add(new AuthorizeFilter(userPolicy));
+});
+
+//To contact Identity Server to provide token
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.Authority = "https://localhost:8009";
+        options.Audience = "Catalog";
+    });
+
+//Enable specific scope level access instead of default full access
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("CanRead", policy => policy.RequireClaim("scope", "catalogapi.read"));
+});
 
 var app = builder.Build();
 
@@ -44,6 +73,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

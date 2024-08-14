@@ -4,11 +4,11 @@
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "swagger",
+      "dotnetRunMessages": true,
+      "applicationUrl": "https://localhost:8001", /* BasketAPI been added with IdentityServer from Gateway.  So must be using https scheme instead of http */
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      },
-      "dotnetRunMessages": true,
-      "applicationUrl": "http://localhost:8001"
+      }
     },    
     "IIS Express": {
       "commandName": "IISExpress",

@@ -57,6 +57,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ApiGateways", "ApiGateways"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ocelot.ApiGateway", "ApiGateways\Ocelot.ApiGateway\Ocelot.ApiGateway.csproj", "{166EACF6-8BFE-4284-9D7C-C0E2282F4932}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EShopping.Identity", "Infrastructure\EShopping.Identity\EShopping.Identity.csproj", "{933B3CC0-488E-40EE-BF63-5A82AA5F3137}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nginx", "nginx", "{84955013-A0B1-4F43-9840-5504A3CFBE4A}"
+	ProjectSection(SolutionItems) = preProject
+		nginx.Dockerfile = nginx.Dockerfile
+		nginx.local.conf = nginx.local.conf
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -143,6 +151,10 @@ Global
 		{166EACF6-8BFE-4284-9D7C-C0E2282F4932}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{166EACF6-8BFE-4284-9D7C-C0E2282F4932}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{166EACF6-8BFE-4284-9D7C-C0E2282F4932}.Release|Any CPU.Build.0 = Release|Any CPU
+		{933B3CC0-488E-40EE-BF63-5A82AA5F3137}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{933B3CC0-488E-40EE-BF63-5A82AA5F3137}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{933B3CC0-488E-40EE-BF63-5A82AA5F3137}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{933B3CC0-488E-40EE-BF63-5A82AA5F3137}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -171,6 +183,8 @@ Global
 		{6839A7A0-3011-4BAD-8007-C1FD734B8E5B} = {EF41EDAC-594C-4B1E-B172-8EB459AD8C3F}
 		{205553A9-4D6A-402F-9F3B-E2C41BFA6116} = {EF41EDAC-594C-4B1E-B172-8EB459AD8C3F}
 		{166EACF6-8BFE-4284-9D7C-C0E2282F4932} = {5B7A1DE6-9525-4A1B-B556-FAC0091ADD2D}
+		{933B3CC0-488E-40EE-BF63-5A82AA5F3137} = {EF41EDAC-594C-4B1E-B172-8EB459AD8C3F}
+		{84955013-A0B1-4F43-9840-5504A3CFBE4A} = {5B7A1DE6-9525-4A1B-B556-FAC0091ADD2D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7810DC8F-99D4-4C10-89E7-793B6DE33323}

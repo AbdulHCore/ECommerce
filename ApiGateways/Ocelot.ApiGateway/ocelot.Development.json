@@ -146,7 +146,11 @@
         }
       ],
       "UpstreamPathTemplate": "/Basket/CreateBasket/{userName}",
-      "UpstreamHttpMethod": [ "POST" ]
+      "UpstreamHttpMethod": [ "POST" ],
+      /* This is to enable Authorization using Gateway level scheme */
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "EShoppingGatewayAuthScheme"
+      }
     },
     {
       "DownstreamTemplatePath": "/api/v1/Basket/DeleteBasket/{userName}",
@@ -170,7 +174,14 @@
         }
       ],
       "UpstreamTemplatePath": "/Basket/Checkout",
-      "UpstreamHttpMethod": [ "POST" ]
+      "UpstreamHttpMethod": [ "POST" ],
+      "RateLimitOptions": {
+        "ClientWhiteList": [],
+        "EnableRateLimiting": true,
+        "Period": "3s",
+        "PeriodTimspan": 1,
+        "Limit": 1
+      }
     },
     //Discount API
     {
