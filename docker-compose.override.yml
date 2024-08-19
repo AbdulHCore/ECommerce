@@ -11,7 +11,7 @@ services:
       - dicount.api 
       - ordering.api
     ports:
-      - 8200:8100
+      - 44344:44344
 
   catalogdb:
     container_name: catalogdb
@@ -172,6 +172,6 @@ services:
   identityserver:
     container_name: identityserver
     environment:
-      - ASPNETCORE_URLS=http://*:8009
+      - ASPNETCORE_URLS=http://*:8011
     ports:
-      - "8009:8009"
+      - "8011:8011"

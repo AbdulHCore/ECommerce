@@ -54,7 +54,11 @@ builder.Services.AddControllers(config =>
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
-        options.Authority = "https://localhost:8009";
+        //Use the below commented Authority when NON-SSL mode authorisation used.
+        //options.Authority = "https://localhost:8009";
+
+        //Use the below when Authority should be SSL mode.  As this port and certificate exposed to docker
+        options.Authority = "https://id-local.eshopping.com:44344";
         options.Audience = "Catalog";
     });
 

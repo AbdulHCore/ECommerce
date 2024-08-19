@@ -108,7 +108,7 @@ builder.Services.AddControllers(config =>
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
-        options.Authority = "https://localhost:8009";
+        options.Authority = "https://localhost:8009"; //See Catalog.Api, for SSL based settings.
         options.Audience = "Basket";
     });
 
