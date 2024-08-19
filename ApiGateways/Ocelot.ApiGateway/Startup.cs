@@ -10,14 +10,14 @@ namespace Ocelot.ApiGateway
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            var authScheme = "EShoppingGatewayAuthScheme";
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(authScheme, options =>
-                {
-                    options.Authority = "https://localhost:8009";
-                    options.Audience = "EShoppingGateway";
+            //var authScheme = "EShoppingGatewayAuthScheme";
+            //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            //    .AddJwtBearer(authScheme, options =>
+            //    {
+            //        options.Authority = "https://localhost:8009";
+            //        options.Audience = "EShoppingGateway";
 
-                });
+            //    });
 
             services.AddOcelot()
                 .AddCacheManager(o => o.WithDictionaryHandle());

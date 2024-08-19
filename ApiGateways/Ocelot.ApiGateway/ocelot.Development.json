@@ -124,103 +124,103 @@
     },
 
     //Basket API
-    {
-      "DownstreamPathTemplate": "/api/v1/Basket/GetBasketByUserName/{userName}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "host.docker.internal",
-          "Port": "8001"
-        }
-      ],
-      "UpstreamPathTemplate": "/Basket/GetBasketByUserName/{userName}",
-      "UpstreamHttpMetho": [ "GET" ]
-    },
-    {
-      "DownstreamTemplatePath": "/api/v1/Basket/CreateBasket",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "host.docker.internal",
-          "Port": "8001"
-        }
-      ],
-      "UpstreamPathTemplate": "/Basket/CreateBasket/{userName}",
-      "UpstreamHttpMethod": [ "POST" ],
-      /* This is to enable Authorization using Gateway level scheme */
-      "AuthenticationOptions": {
-        "AuthenticationProviderKey": "EShoppingGatewayAuthScheme"
-      }
-    },
-    {
-      "DownstreamTemplatePath": "/api/v1/Basket/DeleteBasket/{userName}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "host.docker.internal",
-          "Port": "8001"
-        }
-      ],
-      "UpstreamTemplatePath": "/Basket/DeleteBasket/{userName}",
-      "UpstreamHttpMethod": [ "DELETE" ]
-    },
-    {
-      "DownstreamTemplatePath": "/api/v1/Basket/Checkout",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "host.docker.internal",
-          "Port": "8001"
-        }
-      ],
-      "UpstreamTemplatePath": "/Basket/Checkout",
-      "UpstreamHttpMethod": [ "POST" ],
-      "RateLimitOptions": {
-        "ClientWhiteList": [],
-        "EnableRateLimiting": true,
-        "Period": "3s",
-        "PeriodTimspan": 1,
-        "Limit": 1
-      }
-    },
+    //{
+    //  "DownstreamPathTemplate": "/api/v1/Basket/GetBasketByUserName/{userName}",
+    //  "DownstreamScheme": "http",
+    //  "DownstreamHostAndPorts": [
+    //    {
+    //      "Host": "host.docker.internal",
+    //      "Port": "8001"
+    //    }
+    //  ],
+    //  "UpstreamPathTemplate": "/Basket/GetBasketByUserName/{userName}",
+    //  "UpstreamHttpMetho": [ "GET" ]
+    //},
+    //{
+    //  "DownstreamTemplatePath": "/api/v1/Basket/CreateBasket",
+    //  "DownstreamScheme": "http",
+    //  "DownstreamHostAndPorts": [
+    //    {
+    //      "Host": "host.docker.internal",
+    //      "Port": "8001"
+    //    }
+    //  ],
+    //  "UpstreamPathTemplate": "/Basket/CreateBasket/{userName}",
+    //  "UpstreamHttpMethod": [ "POST" ],
+    //  /* This is to enable Authorization using Gateway level scheme */
+    //  "AuthenticationOptions": {
+    //    "AuthenticationProviderKey": "EShoppingGatewayAuthScheme"
+    //  }
+    //},
+    //{
+    //  "DownstreamTemplatePath": "/api/v1/Basket/DeleteBasket/{userName}",
+    //  "DownstreamScheme": "http",
+    //  "DownstreamHostAndPorts": [
+    //    {
+    //      "Host": "host.docker.internal",
+    //      "Port": "8001"
+    //    }
+    //  ],
+    //  "UpstreamTemplatePath": "/Basket/DeleteBasket/{userName}",
+    //  "UpstreamHttpMethod": [ "DELETE" ]
+    //},
+    //{
+    //  "DownstreamTemplatePath": "/api/v1/Basket/Checkout",
+    //  "DownstreamScheme": "http",
+    //  "DownstreamHostAndPorts": [
+    //    {
+    //      "Host": "host.docker.internal",
+    //      "Port": "8001"
+    //    }
+    //  ],
+    //  "UpstreamTemplatePath": "/Basket/Checkout",
+    //  "UpstreamHttpMethod": [ "POST" ],
+    //  "RateLimitOptions": {
+    //    "ClientWhiteList": [],
+    //    "EnableRateLimiting": true,
+    //    "Period": "3s",
+    //    "PeriodTimspan": 1,
+    //    "Limit": 1
+    //  }
+    //},
     //Discount API
-    {
-      "DownstreamTemplatePath": "/api/v1/Discount/{productName}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "host.docker.internal",
-          "Port": "8002"
-        }
-      ],
-      "UpstreamTemplatePath": "/Discount/{productName}",
-      "UpstreamHttpMethod": ["GET","DELETE"]
-    },
-    {
-      "DownstreamTemplatePath": "/api/v1/Discount",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "host.docker.internal",
-          "Port": "8002"
-        }
-      ],
-      "UpstreamTemplatePath": "/Discount",
-      "UpstreamHttpMethod": [ "PUT", "POST" ]
-    },
-    //Ordering API
-    {
-      "DownstreamTemplatePath": "/api/v1/Order/{userName}",
-      "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "host.docker.internal",
-          "Port": "8003"
-        }
-      ],
-      "UpstreamTemplatePath": "/Order/{userName}",
-      "UpstreamHttpMethod": [ "GET" ]
-    }
+    //{
+    //  "DownstreamTemplatePath": "/api/v1/Discount/{productName}",
+    //  "DownstreamScheme": "http",
+    //  "DownstreamHostAndPorts": [
+    //    {
+    //      "Host": "host.docker.internal",
+    //      "Port": "8002"
+    //    }
+    //  ],
+    //  "UpstreamTemplatePath": "/Discount/{productName}",
+    //  "UpstreamHttpMethod": ["GET","DELETE"]
+    //},
+    //{
+    //  "DownstreamTemplatePath": "/api/v1/Discount",
+    //  "DownstreamScheme": "http",
+    //  "DownstreamHostAndPorts": [
+    //    {
+    //      "Host": "host.docker.internal",
+    //      "Port": "8002"
+    //    }
+    //  ],
+    //  "UpstreamTemplatePath": "/Discount",
+    //  "UpstreamHttpMethod": [ "PUT", "POST" ]
+    //},
+    ////Ordering API
+    //{
+    //  "DownstreamTemplatePath": "/api/v1/Order/{userName}",
+    //  "DownstreamScheme": "http",
+    //  "DownstreamHostAndPorts": [
+    //    {
+    //      "Host": "host.docker.internal",
+    //      "Port": "8003"
+    //    }
+    //  ],
+    //  "UpstreamTemplatePath": "/Order/{userName}",
+    //  "UpstreamHttpMethod": [ "GET" ]
+    //}
   ],
   "GlobalConfiguration": {
     "BaseUrl": "http://localhost:8010"
